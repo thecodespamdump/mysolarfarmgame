@@ -44,3 +44,9 @@ Each worker can be upgraded twice: level 2 costs $200 and level 3 costs $400. Tr
 15 new missions cover expansion, hires, worker upgrades, crew cleaning and collection, and lifetime earnings. Crew work counts toward farm missions. Existing mission IDs remain stable. Previously achieved new milestones are awarded once. After all 22 missions, repeatable earnings goals continue with increasing targets and rewards.
 
 The pressure washer has a nozzle and a sweeping three-stream spray fan, with gentler arm movement than manual scrubbing. The spray disappears when cleaning stops or play pauses. Reduced-motion mode removes the sweep.
+
+## Campaign finale
+
+Finishing all 22 main missions opens a congratulations screen the next time gameplay is active. It shows farm achievements and an educational summary of solar power, with a Department of Energy source link. Choose **Keep my farm & continue** for free play and repeatable goals, or **Start a new farm…** to enter the existing reset confirmation. No progress is cleared by opening or dismissing the finale.
+
+The finale is shown once per farm, including for already-completed older saves. Its acknowledgement persists in the version 3 save format; a new farm resets it. Repeatable missions and community energy days do not delay campaign completion.

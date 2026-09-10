@@ -121,3 +121,16 @@ test('all completed missions unlock repeatable goals which pay once and survive 
  g.stats.earned+=2000;const before=g.money;g.checkMissions();assert.equal(g.money,before+250);assert.equal(g.repeatMission.round,1);g.checkMissions();assert.equal(g.money,before+250);
  const loaded=new Game(JSON.parse(JSON.stringify(g.snapshot())));assert.equal(loaded.nextMission().target,3000);assert.equal(loaded.nextMission().progress,0);
 });
+
+test('completion screen becomes ready only after every main mission and acknowledges once',()=>{
+ const g=new Game();assert.equal(g.completionReady,false);assert.equal(g.acknowledgeCompletion(),false);
+ g.completed=Array.from({length:21},(_,i)=>i);assert.equal(g.completionReady,false);
+ g.completed.push(21);assert.equal(g.completionReady,true);assert.equal(g.acknowledgeCompletion(),true);assert.equal(g.completionReady,false);assert.equal(g.acknowledgeCompletion(),false);
+ const loaded=new Game(JSON.parse(JSON.stringify(g.snapshot())));assert.equal(loaded.campaignComplete,true);assert.equal(loaded.completionReady,false);assert.equal(new Game().completionShown,false);
+});
+test('previously finished saves receive the finale without losing their farm or repeatable progress',()=>{
+ const g=new Game();g.completed=Array.from({length:22},(_,i)=>i);g.checkMissions();g.money=1234;g.repeatMission.round=3;
+ const saved=JSON.parse(JSON.stringify(g.snapshot()));delete saved.completionShown;
+ const loaded=new Game(saved);assert.equal(loaded.completionReady,true);loaded.acknowledgeCompletion();assert.equal(loaded.money,1234);assert.equal(loaded.repeatMission.round,3);assert.equal(loaded.nextMission().target,5000);
+ const incomplete=new Game().snapshot();incomplete.completionShown=true;assert.equal(new Game(incomplete).completionShown,false);
+});
