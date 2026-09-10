@@ -25,7 +25,7 @@ Sun points do not represent real kWh, household consumption, or avoided emission
 
 Dust now accumulates at one quarter of the previous rate. From completely clean to fully dusty requires 340–420 daylight seconds for starter racks, 500–580 for efficient racks, and 680–760 for premium racks. Dust pauses at night. Existing dust is preserved in saved games.
 
-Browser saves retain the existing `solar-shift-v1` key and now use schema version 2, including plot ownership and community progress. Version 1 saves migrate with their original 48 racks owned; cash, tools, upgrades, existing community progress, and completed missions are preserved. Starter missions are marked complete during migration without granting duplicate rewards. Version 2 saves restore only purchased racks. Resetting starts an empty farm with $300 and clears community progress.
+Browser saves retain the existing `solar-shift-v1` key and now use schema version 3, including plot ownership, worker roles and levels, repeatable missions, and community progress. Version 1 saves migrate with their original 48 racks owned; cash, tools, upgrades, existing community progress, and completed missions are preserved. Starter missions are marked complete during migration without granting duplicate rewards. Version 2 saves restore only purchased racks. Resetting starts an empty farm with $300 and clears community progress.
 
 ## Validation
 
@@ -34,3 +34,13 @@ node --test tests/game.test.mjs
 ```
 
 Covers empty starts, purchases and rejected purchases, generation, slower dust, project rewards, save migration, and navigation before and after construction.
+
+## Field crew and extended missions
+
+The Shop hires **cleaners ($250)** and **collectors ($200)** after the first rack is installed. Up to six workers can be hired, with no recurring wages. They follow farm paths, choose distinct tasks within their role, and work only while the game is running (including nighttime). Pausing or opening a menu pauses the crew. Cleaners target racks with at least 15% dust; collectors gather available rack earnings. Player and worker collections use the same cash balance, preventing double collection.
+
+Each worker can be upgraded twice: level 2 costs $200 and level 3 costs $400. Travel speed increases from 3 to 4.5 to 6 metres per second. Cleaning duration decreases from 6 to 3.5 to 1.8 seconds; collection takes 40% of that duration. Levels persist through saves, and unfinished tasks are safely reassigned on reload.
+
+15 new missions cover expansion, hires, worker upgrades, crew cleaning and collection, and lifetime earnings. Crew work counts toward farm missions. Existing mission IDs remain stable. Previously achieved new milestones are awarded once. After all 22 missions, repeatable earnings goals continue with increasing targets and rewards.
+
+The pressure washer has a nozzle and a sweeping three-stream spray fan, with gentler arm movement than manual scrubbing. The spray disappears when cleaning stops or play pauses. Reduced-motion mode removes the sweep.

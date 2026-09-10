@@ -24,7 +24,7 @@ body{background:#a6cfaa}.brand,.wallet,.worldstate,.mission,.instructions,.inter
 <main id="world" aria-label="Solar farm game"></main>
 <div id="hud"><div><div class="top"><div class="brand"><small>SMALL RAYS / SHARED POWER</small><strong>Solar Shift</strong></div><div class="wallet"><span>YOUR CASH</span><strong id="money">$300</strong></div><div class="worldstate"><b id="day">Day 1 · Sunshine</b><br><span id="power">Starting up…</span></div><div class="toolbar"><button class="iconbtn" id="communityBtn" title="C">Community</button><button class="iconbtn" id="mapBtn" title="M">Map</button><button class="iconbtn" id="toolsBtn" title="T">Shop</button><button class="iconbtn" id="pauseBtn" aria-label="Pause and help">Ⅱ</button></div></div><div class="mission"><small>YOUR NEXT MISSION</small><p><span id="goal">Buy your first solar rack</span><span id="goalCount">0 / 1</span></p><div class="meter"><i id="goalBar"></i></div><div id="reward">Reward: $40</div><button id="impactBtn" class="impact-summary"><span>☀ <b id="sunPoints">0</b> sun points · <b id="connected">0 / 3</b> connected</span><small id="nextCommunity">Next: light the neighborhood →</small></button></div></div><div id="toasts" aria-live="polite"></div><div class="bottom"><div><div id="touchpad" aria-label="Drag to move your character"><div id="stick"></div></div><button class="iconbtn" id="sprint">Hold to sprint</button><div class="instructions"><b>WASD / arrows</b> move · <b>Shift</b> sprint<br><b>Hold E</b> clean · <b>U</b> upgrade · <b>M</b> map<br>Click ground to walk · Drag to orbit · Scroll to zoom</div></div><section class="interaction" aria-label="Nearest solar rack"><div class="rackhead"><strong id="rackName">Walk toward a solar rack</strong><span id="tier" class="tag">TIER 1</span></div><div id="rackInfo" class="rackinfo">Cash is collected automatically when you get close.</div><div class="meter"><i id="dirtBar"></i></div><div class="actions"><button id="cleanBtn">Hold E · Clean</button><button id="upgradeBtn" class="secondary">U · Upgrade $90</button><button id="emptyShopBtn" hidden>Open solar shop · T</button></div></section><div class="toolsummary"><strong id="equipped">Cleaning cloth</strong><span id="saveState">Saves on this browser</span><div id="streak"></div></div></div></div>
 <div class="overlay" id="welcome" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle"><div class="dialog"><span class="eyebrow">WELCOME TO YOUR SOLAR FARM</span><h1 id="welcomeTitle">Small acts. Brighter tomorrows.</h1><p>Your field is empty and your starting investment is $300. Buy your first solar rack for $100, collect its earnings, and reinvest to grow. Each rack includes 24 panels and installation. Open Community (C) to turn your sunshine into homes, a greenhouse, and a shared workshop.</p><div class="steps"><div><b>01</b>Open the <strong>Shop</strong>, choose a plot, and buy a solar rack.</div><div><b>02</b>Walk near its <strong>$</strong> sign to collect earnings. Clean it when dusty.</div><div><b>03</b>Upgrade your farm and connect your neighborhood.</div></div><p class="small">WASD or arrows to move; click the ground to walk. Touch players can use the joystick. Daylight generates cash; nighttime is great for maintenance. Progress saves locally.</p><button class="primary" id="playBtn">Start my farm</button><p class="small" id="existingFarmNote" hidden>Your saved farm is ready to continue. To try the empty-field start, use Pause → Start a new farm.</p></div></div>
-<div class="overlay" id="shop" hidden role="dialog" aria-modal="true" aria-labelledby="shopTitle"><div class="dialog"><button class="close" data-close aria-label="Close shop">×</button><span class="eyebrow">INVEST. GENERATE. GROW.</span><h2 id="shopTitle">The solar shop</h2><div class="shop-wallet"><strong id="shopWallet">$300 available</strong><span id="shopCapacity">0 / 48 plots planted</span></div><section class="shopitem panel-product"><div class="panel-illustration" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="eyebrow">SOLAR PANELS / STARTER RACK</span><h3>Your first piece of sunshine</h3><p>24 panels · $4 every 8 daylight seconds · 1 sun point per cycle. Installation included. Starts clean; collect cash by walking near the rack.</p><label for="plotSelect">Choose an empty plot</label><select id="plotSelect"></select><div class="purchase-actions"><button class="iconbtn" id="previewPlotBtn">Preview plot</button><button class="primary" id="buyRackBtn">Buy &amp; install · $100</button></div><p id="purchaseFeedback" role="status" aria-live="polite"></p></section><h3>Cleaning tools</h3><p class="small">A cleaning cloth is included. Install a rack to unlock tool purchases.</p><div class="shopitem"><h3 id="toolName">Solar brush</h3><p id="toolDescription"></p><button class="primary" id="buyToolBtn"></button></div><p>Rack upgrades are bought in the field. Tier 2 yields $10 per cycle; Tier 3 yields $22 and stays clean longer.</p><p class="small">Time pauses while you shop. Rack prices and earnings are game currency.</p></div></div>
+<div class="overlay" id="shop" hidden role="dialog" aria-modal="true" aria-labelledby="shopTitle"><div class="dialog"><button class="close" data-close aria-label="Close shop">×</button><span class="eyebrow">INVEST. GENERATE. GROW.</span><h2 id="shopTitle">The solar shop</h2><div class="shop-wallet"><strong id="shopWallet">$300 available</strong><span id="shopCapacity">0 / 48 plots planted</span></div><section class="shopitem panel-product"><div class="panel-illustration" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="eyebrow">SOLAR PANELS / STARTER RACK</span><h3>Your first piece of sunshine</h3><p>24 panels · $4 every 8 daylight seconds · 1 sun point per cycle. Installation included. Starts clean; collect cash by walking near the rack.</p><label for="plotSelect">Choose an empty plot</label><select id="plotSelect"></select><div class="purchase-actions"><button class="iconbtn" id="previewPlotBtn">Preview plot</button><button class="primary" id="buyRackBtn">Buy &amp; install · $100</button></div><p id="purchaseFeedback" role="status" aria-live="polite"></p></section><section class="shopitem"><h3>Hire your field crew</h3><p>Workers walk to installed racks and work while you play—even at night. One-time hiring cost; no wages. Up to 6 workers.</p><div class="purchase-actions"><button class="primary" id="hireCleaner">Hire cleaner · $250</button><button class="primary" id="hireCollector">Hire collector · $200</button></div><p class="small">Cleaners scrub dusty racks. Collectors bring rack earnings directly to your wallet. Crew work counts toward missions.</p><div id="workerList"></div><p id="workerFeedback" role="status" aria-live="polite"></p></section><h3>Cleaning tools</h3><p class="small">A cleaning cloth is included. Install a rack to unlock tool purchases.</p><div class="shopitem"><h3 id="toolName">Solar brush</h3><p id="toolDescription"></p><button class="primary" id="buyToolBtn"></button></div><p>Rack upgrades are bought in the field. Tier 2 yields $10 per cycle; Tier 3 yields $22 and stays clean longer.</p><p class="small">Time pauses while you shop. Rack prices and earnings are game currency.</p></div></div>
 <div class="overlay" id="pause" hidden role="dialog" aria-modal="true" aria-labelledby="pauseTitle"><div class="dialog"><button class="close" data-close aria-label="Resume game">×</button><span class="eyebrow">TAKE A BREATHER</span><h2 id="pauseTitle">Shift paused</h2><p>WASD / arrows to move. Shift to sprint. Hold E to clean. U upgrades the nearest rack. T opens the solar shop; M toggles the field map; C opens community projects. Clean starter racks now last over five minutes of daylight before becoming fully dusty.</p><p>Finish cleanups less than 12 seconds apart for a streak. From your third cleanup, you earn a bonus. Watch for golden-hour sunbursts: double earnings!</p><button class="primary" data-close>Back to the field</button><button class="danger" id="resetBtn">Start a new farm…</button></div></div>
 <div class="overlay" id="resetConfirm" hidden role="dialog" aria-modal="true" aria-labelledby="resetTitle"><div class="dialog"><h2 id="resetTitle">Start fresh?</h2><p>This resets the farm saved in this browser, including cash and upgrades.</p><button class="primary" data-close>Keep my farm</button><button class="danger" id="confirmResetBtn">Reset this farm</button></div></div>
 <div class="overlay" id="community" hidden role="dialog" aria-modal="true" aria-labelledby="communityTitle"><div class="dialog community-dialog"><button class="close" data-close aria-label="Close community">×</button><span class="eyebrow">SMALL RAYS. SHARED POWER.</span><h2 id="communityTitle">A brighter neighborhood</h2><p>Generate sun points, care for your farm, and connect places that matter.</p><div class="community-stats"><div><strong id="energyBank">0</strong><small>sun points to share</small></div><div><strong id="projectCount">0 / 3</strong><small>places connected</small></div><div><strong id="deliveryCount">0</strong><small>energy days delivered</small></div></div><div id="projectList"></div><section class="community-goal"><span class="eyebrow">YOUR NEXT CONTRIBUTION</span><h3 id="communityGoal"></h3><p id="communityStory"></p><label for="energyProgress" id="energyProgressText"></label><progress id="energyProgress" max="100" value="0"></progress><p id="careProgress"></p><button class="primary" id="contributeBtn"></button><p id="communityFeedback" role="status" aria-live="polite"></p></section><p class="small">Sun points and rewards are game units, not real electricity or carbon measurements. Here, buildings glow while connected and the farm is generating; they rest at night.</p><button class="primary" id="viewCommunityBtn">See the neighborhood</button></div></div>
@@ -36,6 +36,25 @@ const STARTING_CAPITAL=300, RACK_PRICE=100;
 const TIERS = [null,{name:'Starter',yield:4,period:8,dirtTime:85,cost:0},{name:'Efficient',yield:10,period:7,dirtTime:125,cost:90},{name:'Premium',yield:22,period:6,dirtTime:170,cost:260}];
 const TOOLS = [{name:'Cleaning cloth',duration:2.4,reach:5.5,cost:0},{name:'Solar brush',duration:1.35,reach:6.2,cost:90},{name:'Pressure washer',duration:.7,reach:9,cost:240}];
 const MISSIONS = [{label:'Buy your first solar rack',key:'installed',target:1,reward:0},{label:'Collect your first $40',key:'earned',target:40,reward:20},{label:'Build a 3-rack farm',key:'installed',target:3,reward:40},{label:'Clean 3 racks',key:'cleaned',target:3,reward:40},{label:'Collect $250',key:'earned',target:250,reward:80},{label:'Buy 3 rack upgrades',key:'upgrades',target:3,reward:100},{label:'Collect $1,000',key:'earned',target:1000,reward:200}];
+const WORKER_TYPES={cleaner:{name:'Cleaner',cost:250},collector:{name:'Collector',cost:200}};
+const WORKER_LEVELS=[null,{speed:3,duration:6,cost:0},{speed:4.5,duration:3.5,cost:200},{speed:6,duration:1.8,cost:400}];
+MISSIONS.push(
+ {label:'Expand to 6 solar racks',key:'installed',target:6,reward:120},
+ {label:'Hire your first worker',key:'hired',target:1,reward:60},
+ {label:'Clean 15 racks with your crew',key:'cleaned',target:15,reward:150},
+ {label:'Collect $2,500',key:'earned',target:2500,reward:250},
+ {label:'Upgrade a worker',key:'workerUpgrades',target:1,reward:80},
+ {label:'Have collectors gather $500',key:'workerCollected',target:500,reward:120},
+ {label:'Have cleaners finish 10 racks',key:'workerCleaned',target:10,reward:150},
+ {label:'Build a 12-rack farm',key:'installed',target:12,reward:250},
+ {label:'Buy 12 rack upgrades',key:'upgrades',target:12,reward:200},
+ {label:'Build a crew of 4 workers',key:'hired',target:4,reward:200},
+ {label:'Upgrade workers 4 times',key:'workerUpgrades',target:4,reward:200},
+ {label:'Clean 50 racks with your crew',key:'cleaned',target:50,reward:300},
+ {label:'Expand to 24 racks',key:'installed',target:24,reward:400},
+ {label:'Collect $10,000',key:'earned',target:10000,reward:500},
+ {label:'Fill all 48 solar plots',key:'installed',target:48,reward:800}
+);
 // Sun points are a fictional game resource, not kWh or an emissions estimate.
 const PROJECTS=[
  {name:'Light the neighborhood',place:'Solar homes',cost:200,key:'cleaned',target:3,reward:80,task:'Clean 3 racks',story:'Connect a cluster of homes to your solar farm.',impact:'Your neighbors can use the farm’s daytime power.'},
@@ -44,7 +63,8 @@ const PROJECTS=[
 ];
 class SolarGame {
  constructor(saved=null){
-  this.time=0;this.money=STARTING_CAPITAL;this.tool=0;this.player={x:0,z:6};this.stats={cleaned:0,earned:0,upgrades:0,installed:0};this.completed=[];this.streak=0;this.lastClean=-100;this.events=[];
+  this.time=0;this.money=STARTING_CAPITAL;this.tool=0;this.player={x:0,z:6};this.stats={cleaned:0,earned:0,upgrades:0,installed:0,hired:0,workerUpgrades:0,workerCleaned:0,workerCollected:0};this.completed=[];this.streak=0;this.lastClean=-100;this.events=[];
+  this.workers=[];this.repeatMission={round:0,baseline:0,active:false};
   this.community={energy:0,generated:0,projects:0,deliveries:0};
   this.racks=[];
   for(const bz of [-34,34])for(const bx of [-28,0,28])for(let r=0;r<8;r++){
@@ -65,12 +85,12 @@ class SolarGame {
   if(!r)return {ok:false,message:'Choose an available plot.'};
   if(r.owned)return {ok:false,message:'This plot already has a solar rack.'};
   if(this.money<RACK_PRICE)return {ok:false,message:'Need $'+(RACK_PRICE-this.money)+' more. Collect earnings from your installed racks.'};
-  if([-1,1].some(side=>Math.abs(this.player.x-(r.x+side*5.6))<3.94&&Math.abs(this.player.z-r.z)<2.5))return {ok:false,message:'Step out of this plot before installing a rack.'};
+  if([this.player,...this.workers].some(p=>[-1,1].some(side=>Math.abs(p.x-(r.x+side*5.6))<3.94&&Math.abs(p.z-r.z)<2.5)))return {ok:false,message:'A person is standing on this plot. Wait or step aside before installing.'};
   this.money-=RACK_PRICE;Object.assign(r,{owned:true,tier:1,dirt:0,pending:0,cycle:0,progress:0});this.stats.installed=this.installed.length;
   this.emit('install',{id:r.id});this.checkMissions();return {ok:true};
  }
  emit(type,data={}){this.events.push({type,...data});}
- tick(dt){
+ tick(dt,navigate=null){
   if(!Number.isFinite(dt)||dt<=0)return;dt=Math.min(dt,.1);this.time+=dt;
   for(const r of this.installed){
    const t=TIERS[r.tier];
@@ -80,6 +100,7 @@ class SolarGame {
    }
    if(r.pending>0&&this.distance(r)<3.3){const value=r.pending;r.pending=0;this.money+=value;this.stats.earned+=value;this.emit('collect',{id:r.id,value});}
   }
+  this.tickWorkers(dt,navigate);
   if(this.time-this.lastClean>12)this.streak=0;
   this.checkMissions();
  }
@@ -109,7 +130,46 @@ class SolarGame {
   const next=TOOLS[this.tool+1];if(this.money<next.cost)return {ok:false,message:`Need $${next.cost-this.money} more.`};
   this.money-=next.cost;this.tool++;this.emit('tool',{name:next.name});return {ok:true};
  }
- checkMissions(){for(let i=0;i<MISSIONS.length;i++){const m=MISSIONS[i];if(!this.completed.includes(i)&&this.stats[m.key]>=m.target){this.completed.push(i);this.money+=m.reward;this.emit('mission',{label:m.label,reward:m.reward});}}}
+ hireWorker(role){
+  if(!Object.hasOwn(WORKER_TYPES,role))return {ok:false,message:'Choose a cleaner or collector.'};
+  if(!this.installed.length)return {ok:false,message:'Install a solar rack before hiring.'};
+  if(this.workers.length>=6)return {ok:false,message:'Your crew is full (6 workers).'};
+  const spec=WORKER_TYPES[role];if(this.money<spec.cost)return {ok:false,message:'Need $'+(spec.cost-this.money)+' more.'};
+  this.money-=spec.cost;this.workers.push({id:this.workers.length,role,level:1,x:0,z:6,target:null,progress:0,path:[],status:'Looking for work',wait:0});this.stats.hired=this.workers.length;this.checkMissions();return {ok:true};
+ }
+ upgradeWorker(id){
+  const w=Number.isInteger(id)?this.workers[id]:null;if(!w)return {ok:false,message:'Worker not found.'};
+  if(w.level>=3)return {ok:false,message:'Worker is already at maximum level.'};
+  const cost=WORKER_LEVELS[w.level+1].cost;if(this.money<cost)return {ok:false,message:'Need $'+(cost-this.money)+' more.'};
+  this.money-=cost;w.level++;this.stats.workerUpgrades++;this.checkMissions();return {ok:true};
+ }
+ tickWorkers(dt,navigate){
+  for(const w of this.workers){
+   const spec=WORKER_LEVELS[w.level];
+   const available=r=>r&&r.owned&&(w.role==='cleaner'?r.dirt>=.15:r.pending>0);
+   let r=this.racks[w.target];
+   if(!available(r)){w.target=null;w.progress=0;w.path=[];r=null;}
+   if(!r){
+    w.wait=Math.max(0,w.wait-dt);w.status='Looking for work';if(w.wait>0)continue;w.wait=1;
+    const jobs=this.installed.filter(r=>available(r)&&!this.workers.some(other=>other!==w&&other.role===w.role&&other.target===r.id)).sort((a,b)=>Math.hypot(a.x-w.x,a.z-w.z)-Math.hypot(b.x-w.x,b.z-w.z));
+    for(const job of jobs){const route=navigate?navigate(job,w):[{x:job.x,z:job.z}];if(!route.length&&Math.hypot(job.x-w.x,job.z-w.z)>1.5)continue;r=job;w.target=r.id;w.path=route;break;}
+    if(!r)continue;
+   }
+   if(w.path.length){let budget=spec.speed*dt;w.status='Walking to rack '+(r.id+1);while(w.path.length&&budget>0){const p=w.path[0],d=Math.hypot(p.x-w.x,p.z-w.z);if(d<=budget){w.x=p.x;w.z=p.z;w.path.shift();budget-=d;}else{w.x+=(p.x-w.x)/d*budget;w.z+=(p.z-w.z)/d*budget;budget=0;}}continue;}
+   if(Math.hypot(r.x-w.x,r.z-w.z)>3.3){w.target=null;continue;}
+   w.status=w.role==='cleaner'?'Cleaning rack '+(r.id+1):'Collecting from rack '+(r.id+1);
+   w.progress+=dt/(w.role==='cleaner'?spec.duration:spec.duration*.4);
+   if(w.progress<1)continue;
+   if(w.role==='cleaner'){r.dirt=0;r.progress=0;this.stats.cleaned++;this.stats.workerCleaned++;this.emit('workerClean',{id:r.id});}
+   else {const value=r.pending;r.pending=0;this.money+=value;this.stats.earned+=value;this.stats.workerCollected+=value;this.emit('collect',{id:r.id,value});}
+   w.target=null;w.progress=0;w.wait=0;w.status='Looking for work';
+  }
+ }
+ missionValue(m){return this.stats[m.key]||0;}
+ nextMission(){const i=MISSIONS.findIndex((m,i)=>!this.completed.includes(i));if(i>=0)return {...MISSIONS[i],progress:this.missionValue(MISSIONS[i])};return {label:'Energy enterprise · round '+(this.repeatMission.round+1),target:2000+this.repeatMission.round*1000,progress:Math.max(0,this.stats.earned-this.repeatMission.baseline),reward:250+this.repeatMission.round*50};}
+ checkMissions(){for(let i=0;i<MISSIONS.length;i++){const m=MISSIONS[i];if(!this.completed.includes(i)&&this.stats[m.key]>=m.target){this.completed.push(i);this.money+=m.reward;this.emit('mission',{label:m.label,reward:m.reward});}}
+  if(this.completed.length===MISSIONS.length){if(!this.repeatMission.active){this.repeatMission.active=true;this.repeatMission.baseline=this.stats.earned;}const m=this.nextMission();if(m.progress>=m.target){this.money+=m.reward;this.repeatMission.round++;this.repeatMission.baseline=this.stats.earned;this.emit('mission',{label:m.label,reward:m.reward});}}
+ }
  communityGoal(){
   const p=PROJECTS[this.community.projects];
   if(p)return {...p,progress:p.key==='tool'?this.tool:this.stats[p.key],repeat:false};
@@ -123,9 +183,9 @@ class SolarGame {
   if(goal.repeat)this.community.deliveries++;else this.community.projects++;
   this.emit('community',{name:goal.place,reward:goal.reward,impact:goal.impact});return {ok:true};
  }
- snapshot(){return {version:2,community:{...this.community},time:this.time,money:this.money,tool:this.tool,player:this.player,stats:this.stats,completed:this.completed,racks:this.racks.map(({owned,tier,dirt,pending,cycle})=>({owned,tier,dirt,pending,cycle}))};}
+ snapshot(){return {version:3,workers:this.workers.map(({role,level,x,z})=>({role,level,x,z})),repeatMission:{...this.repeatMission},community:{...this.community},time:this.time,money:this.money,tool:this.tool,player:this.player,stats:this.stats,completed:this.completed,racks:this.racks.map(({owned,tier,dirt,pending,cycle})=>({owned,tier,dirt,pending,cycle}))};}
  restore(s){
-  if(![1,2].includes(s.version)||!Array.isArray(s.racks)||s.racks.length!==this.racks.length)return;
+  if(![1,2,3].includes(s.version)||!Array.isArray(s.racks)||s.racks.length!==this.racks.length)return;
   const finite=(v,min,max,fallback)=>Number.isFinite(v)?Math.max(min,Math.min(max,v)):fallback;
   const c=s.community||{};
   this.community={energy:finite(c.energy,0,1e12,0),generated:finite(c.generated,0,1e12,0),projects:Math.floor(finite(c.projects,0,PROJECTS.length,0)),deliveries:Math.floor(finite(c.deliveries,0,100000,0))};
@@ -133,8 +193,11 @@ class SolarGame {
   this.time=finite(s.time,0,1e9,0);this.money=Math.round(finite(s.money,0,1e9,STARTING_CAPITAL));this.tool=Math.round(finite(s.tool,0,2,0));
   this.player={x:finite(s.player?.x,-57,57,0),z:finite(s.player?.z,-83,90,6)};
   for(const key of Object.keys(this.stats))this.stats[key]=Math.floor(finite(s.stats?.[key],0,1e9,0));
-  this.completed=Array.isArray(s.completed)?[...new Set(s.completed.filter(i=>Number.isInteger(i)&&i>=0&&i<(s.version===1?MISSIONS.length-3:MISSIONS.length)).map(i=>s.version===1?i+3:i))]:[];
+  this.completed=Array.isArray(s.completed)?[...new Set(s.completed.filter(i=>Number.isInteger(i)&&i>=0&&i<(s.version===1?4:s.version===2?7:MISSIONS.length)).map(i=>s.version===1?i+3:i))]:[];
   this.racks.forEach((r,i)=>{const v=s.racks[i]||{};r.owned=s.version===1||v.owned===true;r.tier=Math.round(finite(v.tier,1,3,1));r.dirt=finite(v.dirt,0,1,0);r.pending=Math.floor(finite(v.pending,0,1e9,0));r.cycle=finite(v.cycle,0,TIERS[r.tier].period,0);if(!r.owned)Object.assign(r,{tier:1,dirt:0,pending:0,cycle:0});});
+  this.workers=Array.isArray(s.workers)?s.workers.filter(w=>w&&Object.hasOwn(WORKER_TYPES,w.role)).slice(0,6).map((w,id)=>({id,role:w.role,level:Math.floor(finite(w.level,1,3,1)),x:finite(w.x,-47,47,0),z:finite(w.z,-67,85,6),target:null,progress:0,path:[],wait:0,status:'Looking for work'})):[];
+  this.stats.hired=this.workers.length;
+  this.repeatMission={round:Math.floor(finite(s.repeatMission?.round,0,100000,0)),baseline:finite(s.repeatMission?.baseline,0,this.stats.earned,this.stats.earned),active:s.repeatMission?.active===true};
   this.stats.installed=this.installed.length;
   if(s.version===1)this.completed=[...new Set([...this.completed,0,1,2])];
  }
@@ -186,7 +249,13 @@ function save(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(game.snapshot()
 function clearInput(){keys.clear();cleaningHeld=false;sprinting=false;joy={x:0,y:0};$('stick').style.transform='';path=[];game.stopCleaning();}
 function modal(id){clearInput();save();dialogFocus=document.activeElement;document.querySelectorAll('.overlay').forEach(el=>el.hidden=true);$(id).hidden=false;playing=false;document.querySelector('#'+id+' button')?.focus();if(id==='shop')updateShop();if(id==='community')updateCommunity();}
 function resume(){document.querySelectorAll('.overlay').forEach(el=>el.hidden=true);playing=true;lastTime=performance.now();dialogFocus?.focus();}
+function updateWorkersShop(){
+ for(const [role,id] of [['cleaner','hireCleaner'],['collector','hireCollector']])$(''+id).disabled=!game.installed.length||game.workers.length>=6||game.money<WORKER_TYPES[role].cost;
+ $('workerList').replaceChildren(...game.workers.map(w=>{const row=document.createElement('div');row.className='project-row';const title=document.createElement('strong');title.textContent=WORKER_TYPES[w.role].name+' '+(w.id+1)+' · Level '+w.level;const details=document.createElement('p');const spec=WORKER_LEVELS[w.level];details.className='small';details.textContent=spec.speed+' m/s · '+(w.role==='cleaner'?spec.duration:(spec.duration*.4).toFixed(1))+'s per task · '+w.status;const button=document.createElement('button');button.className='primary';const next=WORKER_LEVELS[w.level+1];button.textContent=next?'Upgrade · $'+next.cost+' · '+next.speed+' m/s':'Maximum level';button.disabled=!next||game.money<next.cost;button.onclick=()=>{const result=game.upgradeWorker(w.id);$('workerFeedback').textContent=result.ok?'Worker upgraded: faster travel and shorter tasks.':result.message;updateShop();updateHUD();save();};row.append(title,details,button);return row;}));
+}
+for(const [role,id] of [['cleaner','hireCleaner'],['collector','hireCollector']])$(id).onclick=()=>{const result=game.hireWorker(role);$('workerFeedback').textContent=result.ok?WORKER_TYPES[role].name+' hired! Close the shop to let your crew work.':result.message;updateShop();updateHUD();save();};
 function updateShop(){
+ updateWorkersShop();
  const previous=$('plotSelect').value,plots=game.racks.filter(r=>!r.owned).sort((a,b)=>game.distance(a)-game.distance(b));
  $('plotSelect').replaceChildren(...plots.map(r=>{const o=document.createElement('option');o.value=r.id;o.textContent='Plot '+(r.id+1)+' · '+(r.z>0?'South':'North')+' field · '+Math.round(game.distance(r))+' m away';return o;}));
  if(plots.some(r=>String(r.id)===previous))$('plotSelect').value=previous;
@@ -208,7 +277,7 @@ $('viewCommunityBtn').onclick=()=>{resume();focusCommunity();};
 function openShop(){if(loaded){$('purchaseFeedback').textContent='';modal('shop');}}
 $('toolsBtn').onclick=openShop;$('emptyShopBtn').onclick=openShop;
 $('previewPlotBtn').onclick=()=>{if(!$('plotSelect').options.length)return;const id=Number($('plotSelect').value);resume();focusPlot(id);toast('Highlighted: plot '+(id+1)+'. Open Shop to buy and install.');};
-$('buyRackBtn').onclick=()=>{const id=$('plotSelect').options.length?Number($('plotSelect').value):-1,result=game.buyRack(id);$('purchaseFeedback').textContent=result.ok?'Installed on plot '+(id+1)+'. Close the shop and walk near its $ sign to collect earnings.':result.message;if(result.ok){path=[];rebuildNavigation();}updateShop();updateHUD();save();};$('pauseBtn').onclick=()=>{if(loaded)modal('pause');};
+$('buyRackBtn').onclick=()=>{const id=$('plotSelect').options.length?Number($('plotSelect').value):-1,result=game.buyRack(id);$('purchaseFeedback').textContent=result.ok?'Installed on plot '+(id+1)+'. Close the shop and walk near its $ sign to collect earnings.':result.message;if(result.ok){path=[];for(const w of game.workers){w.target=null;w.path=[];w.progress=0;}rebuildNavigation();}updateShop();updateHUD();save();};$('pauseBtn').onclick=()=>{if(loaded)modal('pause');};
 $('playBtn').onclick=()=>{resume();if(!game.installed.length)openShop();else toast('Welcome back. Your farm is ready.');};
 if(saved&&game.installed.length){$('playBtn').textContent='Continue my farm';$('existingFarmNote').hidden=false;}
 document.querySelectorAll('[data-close]').forEach(el=>el.onclick=resume);
@@ -246,6 +315,7 @@ rect(7,72.5,.1,15);rect(33,72.5,.1,15);rect(20,65,26,.1);rect(12,80,10,.1);rect(
 function blocked(x,z,padding=.40){return x<-60||x>60||z<-86||z>94||game.installed.some(r=>[-1,1].some(side=>Math.abs(x-(r.x+side*5.6))<3.54+padding&&Math.abs(z-r.z)<2.1+padding))||obstacles.some(o=>Math.abs(x-o.x)<o.w+padding&&Math.abs(z-o.z)<o.d+padding);}
 for(const x of [-20,0,20])rect(x,0,7,6);
 if(blocked(game.player.x,game.player.z))game.player={x:0,z:6};
+for(const w of game.workers)if(blocked(w.x,w.z)){w.x=0;w.z=6;}
 // A* over a cached 1.5 m grid prevents click-to-walk paths crossing panel racks.
 const gridStep=1.5,gridWidth=81,gridHeight=121;
 const gridPos=(x,z)=>({x:-60+x*gridStep,z:-86+z*gridStep});
@@ -253,8 +323,8 @@ const walkable=new Uint8Array(gridWidth*gridHeight);
 function rebuildNavigation(){for(let z=0;z<gridHeight;z++)for(let x=0;x<gridWidth;x++){const p=gridPos(x,z);walkable[z*gridWidth+x]=blocked(p.x,p.z,.56)?0:1;}}
 rebuildNavigation();
 function closestCell(p){let x=Math.max(0,Math.min(gridWidth-1,Math.round((p.x+60)/gridStep))),z=Math.max(0,Math.min(gridHeight-1,Math.round((p.z+86)/gridStep)));for(let radius=0;radius<12;radius++){let best=-1,d=Infinity;for(let dz=-radius;dz<=radius;dz++)for(let dx=-radius;dx<=radius;dx++){const xx=x+dx,zz=z+dz;if(xx<0||xx>=gridWidth||zz<0||zz>=gridHeight)continue;const id=zz*gridWidth+xx;if(walkable[id]){const q=gridPos(xx,zz),dist=(q.x-p.x)**2+(q.z-p.z)**2;if(dist<d){d=dist;best=id;}}}if(best>=0)return best;}return -1;}
-function findPath(target){
- const start=closestCell(game.player),end=closestCell(target);if(start<0||end<0)return [];
+function findPath(target,origin=game.player){
+ const start=closestCell(origin),end=closestCell(target);if(start<0||end<0)return [];
  const size=walkable.length,g=new Float32Array(size).fill(Infinity),parent=new Int32Array(size).fill(-1),done=new Uint8Array(size),heap=[];
  const h=id=>Math.hypot(id%gridWidth-end%gridWidth,Math.floor(id/gridWidth)-Math.floor(end/gridWidth));
  function push(id,f){heap.push({id,f});let i=heap.length-1;while(i>0){const p=(i-1)>>1;if(heap[p].f<=f)break;[heap[p],heap[i]]=[heap[i],heap[p]];i=p;}}
@@ -269,8 +339,7 @@ function updateHUD(){
  const communityGoal=game.communityGoal();$('sunPoints').textContent=Math.floor(game.community.energy).toLocaleString();$('connected').textContent=game.community.projects+' / 3';$('nextCommunity').textContent=communityGoal.progress>=communityGoal.target&&game.community.energy>=communityGoal.cost?'Ready to share sunshine →':'Next: '+communityGoal.name+' →';
  $('money').textContent='$'+Math.floor(game.money).toLocaleString();$('day').textContent=`Day ${Math.floor(game.time/240)+1} · ${game.sunburst?'Sunburst ×2':game.daylight?'Sunshine':'Night shift'}`;
  const running=game.installed.filter(r=>r.dirt<1).length;$('power').textContent=!game.installed.length?'Empty field · open Shop to begin':game.daylight?`${running} / ${game.installed.length} racks generating`:'Sunrise in '+Math.ceil(240-game.time%240)+'s · time to clean';
- const idx=MISSIONS.findIndex((m,i)=>!game.completed.includes(i));const m=MISSIONS[idx];
- if(m){$('goal').textContent=m.label;$('goalCount').textContent=Math.min(game.stats[m.key],m.target)+' / '+m.target;$('goalBar').style.width=Math.min(100,game.stats[m.key]/m.target*100)+'%';$('reward').textContent=m.reward?`Reward: $${m.reward}`:'Open Shop · choose a plot · install';}else{$('goal').textContent='Clean energy champion';$('goalCount').textContent='✓';$('goalBar').style.width='100%';$('reward').textContent='All missions complete. Keep growing your farm!';}
+ const m=game.nextMission();$('goal').textContent=m.label;$('goalCount').textContent=Math.min(m.progress,m.target)+' / '+m.target;$('goalBar').style.width=Math.min(100,m.progress/m.target*100)+'%';$('reward').textContent=m.reward?'Reward: $'+m.reward:'Open Shop · choose a plot · install';
  $('equipped').textContent=game.toolInfo.name;$('streak').textContent=game.streak>=2?`${game.streak}× cleaning streak · keep going!`:'';
  const empty=!game.installed.length;$('emptyShopBtn').hidden=!empty;$('cleanBtn').hidden=empty;$('upgradeBtn').hidden=empty;
  if(empty){$('rackName').textContent='Your farm starts here';$('tier').textContent='0 / 48';$('rackInfo').textContent='$100 buys a rack with 24 panels. Open the shop to choose its plot.';$('dirtBar').style.width='0%';$('cleanBtn').disabled=true;$('upgradeBtn').disabled=true;return;}
@@ -377,6 +446,16 @@ try {
  });
  const particles=[];const particleGeometry=new THREE.SphereGeometry(.055,4,3),waterMaterial=new THREE.MeshBasicMaterial({color:0x9decff}),sparkMaterial=new THREE.MeshBasicMaterial({color:0xffd45e});
  function burst(x,z,color='gold',n=12){if(reduced)return;for(let i=0;i<n&&particles.length<100;i++){const mesh=new THREE.Mesh(particleGeometry,color==='water'?waterMaterial:sparkMaterial);mesh.position.set(x+(Math.random()-.5),color==='water'?1.7:2.2,z+(Math.random()-.5));scene.add(mesh);particles.push({mesh,v:new THREE.Vector3((Math.random()-.5)*3,2+Math.random()*3,(Math.random()-.5)*3),life:.5+Math.random()*.4});}}
+ const workerViews=new Map();
+ function showWorkers(){
+  for(const w of game.workers){let view=workerViews.get(w.id);if(!view){const root=new THREE.Group();scene.add(root);const coat=material(w.role==='cleaner'?0x71bbae:0xe6a96e);part(new THREE.BoxGeometry(.65,.8,.42),coat,root,[0,1.1,0]);part(new THREE.SphereGeometry(.28,10,8),skin,root,[0,1.8,0]);part(new THREE.CylinderGeometry(.35,.35,.14,12),hat,root,[0,2.02,0]);const limbs=[];for(const x of [-.2,.2]){const leg=part(new THREE.BoxGeometry(.22,.7,.26),pants,root,[x,.45,0]);limbs.push(leg);}const hand=part(new THREE.BoxGeometry(.17,.65,.17),coat,root,[.43,1.05,0]);part(new THREE.BoxGeometry(.35,.32,.25),w.role==='cleaner'?brass:ink,root,[.43,.65,.15]);view={root,limbs,hand,lastX:w.x,lastZ:w.z};workerViews.set(w.id,view);}
+   const dx=w.x-view.lastX,dz=w.z-view.lastZ,moving=Math.hypot(dx,dz)>.001;if(moving)view.root.rotation.y=Math.atan2(dx,dz);else if(w.target!==null){const r=game.racks[w.target];view.root.rotation.y=Math.atan2(r.x-w.x,r.z-w.z);}view.root.position.set(w.x,0,w.z);const swing=playing&&!reduced&&moving?Math.sin(game.time*WORKER_LEVELS[w.level].speed*3)*.45:0;view.limbs[0].rotation.x=swing;view.limbs[1].rotation.x=-swing;view.hand.rotation.x=w.progress>0&&!reduced?-.7+Math.sin(game.time*12)*.2:0;view.lastX=w.x;view.lastZ=w.z;
+  }
+ }
+ const washJet=new THREE.Group();scene.add(washJet);washJet.visible=false;
+ const jetMaterial=new THREE.MeshBasicMaterial({color:0xb5f3ff,transparent:true,opacity:.23,depthWrite:false});
+ for(const angle of [-.10,0,.10]){const stream=new THREE.Mesh(new THREE.ConeGeometry(.25,1,8,1,true),jetMaterial);stream.rotation.x=-Math.PI/2;const fan=new THREE.Group();fan.rotation.y=angle;stream.position.z=.5;fan.add(stream);washJet.add(fan);}
+ const washerNozzle=part(new THREE.CylinderGeometry(.065,.10,.7,8),ink,tool,[0,0,.65]);washerNozzle.rotation.x=Math.PI/2;washerNozzle.visible=false;
  const floaters=[];
  function floatCash(r,text,color){if(game.distance(r)>45&&!overview)return;const sprite=label(text,color);sprite.position.set(r.x,5.5,r.z);scene.add(sprite);floaters.push({sprite,life:1.2});while(floaters.length>16)removeFloater(floaters.shift());}
  function removeFloater(f){scene.remove(f.sprite);f.sprite.material.map.dispose();f.sprite.material.dispose();}
@@ -385,6 +464,7 @@ try {
   if(event.type==='install')toast('Solar rack installed on plot '+(event.id+1)+'!');
   if(event.type==='sale')floatCash(r,'+$'+event.value,'#ffd45e');
   if(event.type==='collect'){floatCash(r,'+$'+event.value,'#c4fa72');burst(r.x,r.z);}
+  if(event.type==='workerClean')burst(r.x,r.z,'water',8);
   if(event.type==='clean'){burst(r.x,r.z,'water',24);toast(event.bonus?`${event.streak}× streak! +$${event.bonus}`:'Rack cleaned. Ready for sunshine!');}
   if(event.type==='upgrade'){burst(r.x,r.z,'gold',24);toast(`Rack ${r.id+1} upgraded to Tier ${event.tier}`);}
   if(event.type==='tool'){toast(event.name+' equipped');tool.scale.setScalar(game.tool===2?1.4:1.15);}
@@ -403,7 +483,7 @@ try {
   const moved=Math.hypot(x-game.player.x,z-game.player.z);game.player.x=x;game.player.z=z;
   if(moved>.001)character.rotation.y=Math.atan2(delta.x,delta.z);
   const phase=game.time*(speed>6?16:11),swing=moved>.001?Math.sin(phase)*.6:0;
-  legs[0].rotation.x=swing;legs[1].rotation.x=-swing;arms[0].rotation.x=-swing*.6;arms[1].rotation.x=cleaning?-1+Math.sin(game.time*18)*.3:swing*.6;
+  legs[0].rotation.x=swing;legs[1].rotation.x=-swing;arms[0].rotation.x=-swing*.6;arms[1].rotation.x=cleaning?(game.tool===2?-.9+Math.sin(game.time*7)*.07:-1+Math.sin(game.time*18)*.3):swing*.6;
   character.position.set(x,moved>.001&&!reduced?Math.abs(Math.sin(phase))*.07:0,z);shadowRing.position.set(x,.08,z);
   const change=new THREE.Vector3(x,0,z).sub(previousPlayer);if(!overview){camera.position.add(change);controls.target.add(change);}previousPlayer.set(x,0,z);
   clickMarker.visible=path.length>0;
@@ -413,8 +493,8 @@ try {
   const dt=Math.min((now-lastTime)/1000,.05)||0;lastTime=now;
   if(!document.hidden){
    if(playing){
-    game.tick(dt);cleaning=cleaningHeld||keys.has('KeyE');movePlayer(dt);
-    if(cleaning){cleaning=game.clean(dt);if(cleaning&&game.time-lastWater>.10){const r=game.nearest();burst(game.player.x,game.player.z,'water',game.tool===2?5:2);lastWater=game.time;character.rotation.y=Math.atan2(r.x-game.player.x,r.z-game.player.z);}}else game.stopCleaning();
+    game.tick(dt,findPath);cleaning=cleaningHeld||keys.has('KeyE');movePlayer(dt);
+    if(cleaning){cleaning=game.clean(dt);if(cleaning&&game.time-lastWater>.10){const r=game.nearest();if(game.tool!==2)burst(game.player.x,game.player.z,'water',2);lastWater=game.time;character.rotation.y=Math.atan2(r.x-game.player.x,r.z-game.player.z);}}else game.stopCleaning();
     if(wasDay!==game.daylight){toast(game.daylight?'Sunrise! The farm is generating again.':'Night shift: clean and upgrade before sunrise.');wasDay=game.daylight;}
     if(wasBurst!==game.sunburst){if(game.sunburst)toast('SUNBURST! Double earnings for 25 seconds.');wasBurst=game.sunburst;}
     processEvents();saveTimer+=dt;if(saveTimer>5){saveTimer=0;save();}
@@ -432,6 +512,9 @@ try {
     v.level.material.color.setHex(r.tier===3?0xc696ff:r.tier===2?0x65dfea:0xc4fa72);v.level.scale.setScalar(1+(r.tier-1)*.2);v.accents.visible=r.tier>1;v.accents.children.forEach(o=>o.material.color.setHex(r.tier===3?0xc696ff:0x65dfea));
    }
    if(playing){for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.life-=dt;p.v.y-=dt*5;p.mesh.position.addScaledVector(p.v,dt);if(p.life<=0){scene.remove(p.mesh);particles.splice(i,1);}}for(let i=floaters.length-1;i>=0;i--){const f=floaters[i];f.life-=dt;f.sprite.position.y+=dt*1.4;f.sprite.material.opacity=Math.min(1,f.life*2);if(f.life<=0){removeFloater(f);floaters.splice(i,1);}}}
+   showWorkers();washerNozzle.visible=game.tool===2;
+   washJet.visible=playing&&cleaning&&game.tool===2&&!!game.nearest();
+   if(washJet.visible){const r=game.nearest(),side=game.player.x<r.x?-1:1;washJet.position.set(game.player.x,1.35,game.player.z);const aim=new THREE.Vector3(r.x+side*5.6+(reduced?0:Math.sin(game.time*7)*1.5),2,r.z);washJet.lookAt(aim);washJet.scale.set(1,1,Math.min(12,aim.distanceTo(washJet.position)));}
    controls.update();renderer.render(scene,camera);hudTimer+=dt;if(hudTimer>.12){hudTimer=0;updateHUD();}
   }
  }

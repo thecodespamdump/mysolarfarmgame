@@ -71,13 +71,14 @@ test('first purchase produces earnings, allows tools and survives reloading with
  assert.equal(g.money,204);assert.equal(g.community.energy,1);
  assert.equal(g.buyTool().ok,true);assert.equal(g.money,114);
  const saved=JSON.parse(JSON.stringify(g.snapshot())),loaded=new Game(saved);
- assert.equal(saved.version,2);assert.equal(loaded.installed.length,1);assert.equal(loaded.racks[32].owned,true);assert.equal(loaded.racks[0].owned,false);assert.equal(loaded.money,114);assert.equal(loaded.tool,1);
+ assert.equal(saved.version,3);assert.equal(loaded.installed.length,1);assert.equal(loaded.racks[32].owned,true);assert.equal(loaded.racks[0].owned,false);assert.equal(loaded.money,114);assert.equal(loaded.tool,1);
  const empty=new Game(new Game().snapshot());assert.equal(empty.installed.length,0);assert.equal(empty.money,300);
 });
 test('version 1 preserves the old full farm and offsets its completed mission IDs',()=>{
  const old=new Game().snapshot();old.version=1;old.money=222;old.completed=[0,2];old.racks.forEach(r=>delete r.owned);old.racks[0].tier=2;old.racks[0].pending=10;
  const migrated=new Game(old);assert.equal(migrated.installed.length,48);assert.equal(migrated.money,222);assert.equal(migrated.racks[0].tier,2);assert.equal(migrated.racks[0].pending,10);assert.ok(migrated.completed.includes(3));assert.ok(migrated.completed.includes(5));
- migrated.tick(.1);assert.equal(migrated.money,222); // no new starter rewards on legacy saves
+ migrated.tick(.1);assert.equal(migrated.money,222+120+250+400+800); // Newly added expansion milestones award once; old starter rewards do not repeat.
+ const after=migrated.money;migrated.tick(.1);assert.equal(migrated.money,after);
 });
 test('navigation changes after construction without blocking cash collection or allowing paths through panels',()=>{
  const farm=new Game(),nav=vm.createContext({game:farm});
@@ -85,4 +86,38 @@ test('navigation changes after construction without blocking cash collection or 
  const r=farm.racks[32];assert.equal(nav.collision(r.x+5.6,r.z),false);
  farm.buyRack(32);nav.rebuild();assert.equal(nav.collision(r.x+5.6,r.z),true);
  const route=nav.route({x:r.x,z:r.z});assert.ok(route.length);for(const point of route)assert.equal(nav.collision(point.x,point.z),false);
+});
+
+test('hiring and worker upgrades enforce prerequisites, prices, levels and crew cap',()=>{
+ const g=new Game();assert.equal(g.hireWorker('cleaner').ok,false);g.buyRack(32);g.money=10000;
+ assert.equal(g.hireWorker('invalid').ok,false);assert.equal(g.hireWorker('cleaner').ok,true);assert.equal(g.money,9810); // $250 hire, $60 milestone
+ assert.equal(g.upgradeWorker(0).ok,true);assert.equal(g.workers[0].level,2);assert.equal(g.money,9690); // $200 upgrade, $80 milestone
+ assert.equal(g.upgradeWorker(0).ok,true);assert.equal(g.workers[0].level,3);assert.equal(g.upgradeWorker(0).ok,false);assert.equal(g.upgradeWorker(99).ok,false);
+ for(let i=1;i<6;i++)assert.equal(g.hireWorker('collector').ok,true);
+ assert.equal(g.hireWorker('cleaner').ok,false);g.money=0;assert.equal(g.upgradeWorker(1).ok,false);
+});
+test('workers navigate around real obstacles and clean and collect automatically',()=>{
+ const g=new Game();g.buyRack(0);g.money=1000;g.hireWorker('cleaner');g.hireWorker('collector');g.racks[0].dirt=1;g.racks[0].pending=24;
+ const nav=vm.createContext({game:g});vm.runInContext(script.slice(script.indexOf('const obstacles=[]'),script.indexOf('function updateHUD()'))+'\nglobalThis.route=findPath;globalThis.collision=blocked;',nav);
+ for(let i=0;i<1500;i++){g.tick(.1,nav.route);for(const w of g.workers)assert.equal(nav.collision(w.x,w.z),false);}
+ assert.ok(g.stats.workerCleaned>=1);assert.ok(g.stats.workerCollected>=24);assert.ok(g.stats.cleaned>=g.stats.workerCleaned);
+});
+test('upgraded workers travel and complete tasks faster',()=>{
+ const completeAt=level=>{const g=new Game();g.buyRack(32);g.money=1000;g.hireWorker('cleaner');g.workers[0].level=level;g.racks[32].dirt=1;let t=0;while(!g.stats.workerCleaned&&t<200){g.tick(.1);t++;}return t;};
+ assert.ok(completeAt(3)<completeAt(2));assert.ok(completeAt(2)<completeAt(1));
+});
+test('two collectors and the player never duplicate rack money',()=>{
+ const g=new Game();g.buyRack(32);g.money=1000;g.hireWorker('collector');g.hireWorker('collector');g.racks[32].dirt=1;g.racks[32].pending=12;g.player={x:0,z:10.9};
+ const before=g.money;for(let i=0;i<200;i++)g.tick(.1);
+ assert.equal(g.money,before+12);assert.equal(g.stats.earned,12);assert.equal(g.stats.workerCollected,0);
+});
+test('workers persist with upgrades; old saves start without a crew',()=>{
+ const g=new Game();g.buyRack(32);g.money=1000;g.hireWorker('cleaner');g.upgradeWorker(0);
+ const saved=JSON.parse(JSON.stringify(g.snapshot())),loaded=new Game(saved);assert.equal(loaded.workers.length,1);assert.equal(loaded.workers[0].level,2);assert.equal(loaded.workers[0].role,'cleaner');assert.equal(loaded.workers[0].target,null);
+ saved.version=2;delete saved.workers;assert.equal(new Game(saved).workers.length,0);
+});
+test('all completed missions unlock repeatable goals which pay once and survive saves',()=>{
+ const g=new Game();g.completed=Array.from({length:22},(_,i)=>i);g.checkMissions();const m=g.nextMission();assert.equal(m.progress,0);assert.equal(m.target,2000);
+ g.stats.earned+=2000;const before=g.money;g.checkMissions();assert.equal(g.money,before+250);assert.equal(g.repeatMission.round,1);g.checkMissions();assert.equal(g.money,before+250);
+ const loaded=new Game(JSON.parse(JSON.stringify(g.snapshot())));assert.equal(loaded.nextMission().target,3000);assert.equal(loaded.nextMission().progress,0);
 });
