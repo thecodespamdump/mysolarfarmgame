@@ -50,3 +50,9 @@ The pressure washer has a nozzle and a sweeping three-stream spray fan, with gen
 Finishing all 22 main missions opens a congratulations screen the next time gameplay is active. It shows farm achievements and an educational summary of solar power, with a Department of Energy source link. Choose **Keep my farm & continue** for free play and repeatable goals, or **Start a new farm…** to enter the existing reset confirmation. No progress is cleared by opening or dismissing the finale.
 
 The finale is shown once per farm, including for already-completed older saves. Its acknowledgement persists in the version 3 save format; a new farm resets it. Repeatable missions and community energy days do not delay campaign completion.
+
+## Responsive interface
+
+The HUD adapts to desktop, tablet, narrow portrait, and short landscape viewports. Mission & community is a native expandable panel: it starts collapsed at widths up to 1000px or heights up to 500px and can be opened by touch or keyboard. Breakpoint changes reset that default; normal resizing within a breakpoint preserves the user's selection.
+
+Dialogs scroll within the visible viewport, with safe-area padding for phone notches and home indicators. Touch actions use at least 44px targets. The joystick scales with the screen and uses its actual radius for normalized movement. Hybrid devices expose touch controls through `any-pointer: coarse`. No farm save migration is required.
