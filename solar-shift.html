@@ -394,12 +394,43 @@ try {
  const material=(color)=>new THREE.MeshStandardMaterial({color,roughness:.8});
  const uniform=material(0xefcf70),pants=material(0x577c69),skin=material(0xe5a76d),hat=material(0xffc84c),boots=material(0x162d2a),eye=material(0x102e2b);
  function part(geo,mat,parent,pos){const mesh=new THREE.Mesh(geo,mat);mesh.position.set(...pos);mesh.castShadow=true;parent.add(mesh);return mesh;}
- part(new THREE.BoxGeometry(.72,.8,.45),uniform,character,[0,1.15,0]);part(new THREE.BoxGeometry(.40,.55,.15),hat,character,[0,1.14,-.3]);
- part(new THREE.SphereGeometry(.31,12,8),skin,character,[0,1.91,0]);part(new THREE.SphereGeometry(.34,12,8,0,Math.PI*2,0,Math.PI/2),hat,character,[0,1.98,0]);part(new THREE.BoxGeometry(.73,.06,.5),hat,character,[0,1.99,.13]);
- for(const x of [-.11,.11])part(new THREE.SphereGeometry(.037,6,6),eye,character,[x,1.91,.287]);
+ // Soft silhouettes keep the technician readable at the game's overhead camera angle.
+ const characterSphere=new THREE.SphereGeometry(1,20,14),trim=material(0xf5eac3),leather=material(0x926338),hair=material(0x513d2d);
+ const lens=new THREE.MeshStandardMaterial({color:0x7dd6c9,roughness:.2,metalness:.25});
+ function softPart(parent,mat,pos,scale){const mesh=part(characterSphere,mat,parent,pos);mesh.scale.set(...scale);return mesh;}
+ softPart(character,uniform,[0,1.22,0],[.43,.53,.29]);
+ softPart(character,pants,[0,1.14,.255],[.30,.34,.055]);
+ softPart(character,trim,[0,1.27,.30],[.16,.13,.028]);
+ const leafBadge=softPart(character,pants,[.035,1.28,.33],[.04,.075,.015]);leafBadge.rotation.z=-.5;
+ // Backpack, straps and a compact water canister read clearly from behind.
+ softPart(character,leather,[0,1.23,-.30],[.32,.38,.16]);
+ softPart(character,uniform,[0,1.41,-.44],[.29,.15,.04]);
+ softPart(character,trim,[0,1.20,-.46],[.045,.085,.025]);
+ for(const x of [-.26,.26]){part(new THREE.CapsuleGeometry(.035,.42,4,8),leather,character,[x,1.4,.24]);softPart(character,trim,[x,1.5,.28],[.055,.07,.022]);}
+ const canister=part(new THREE.CapsuleGeometry(.095,.24,5,12),lens,character,[.34,1.15,-.29]);canister.rotation.z=-.12;
+ softPart(character,skin,[0,1.73,0],[.13,.18,.13]);
+ softPart(character,skin,[0,1.99,.035],[.35,.36,.30]);
+ for(const x of [-.34,.34])softPart(character,skin,[x,1.98,.015],[.065,.095,.06]);
+ softPart(character,hair,[0,2.03,-.12],[.34,.29,.21]);
+ for(const x of [-.12,.12]){softPart(character,eye,[x,2.03,.312],[.038,.05,.022]);softPart(character,trim,[x-.01,2.045,.333],[.012,.014,.008]);}
+ softPart(character,skin,[0,1.96,.34],[.058,.063,.05]);
+ const smile=part(new THREE.TorusGeometry(.065,.012,5,12,Math.PI),leather,character,[0,1.89,.315]);smile.rotation.z=Math.PI;
+ // Rounded sun helmet with goggles perched on the brim.
+ part(new THREE.SphereGeometry(.37,24,14,0,Math.PI*2,0,Math.PI/2),hat,character,[0,2.17,0]);
+ softPart(character,hat,[0,2.17,.035],[.46,.045,.40]);
+ for(const x of [-.12,.12]){part(new THREE.TorusGeometry(.095,.025,6,16),leather,character,[x,2.25,.30]);softPart(character,lens,[x,2.25,.30],[.073,.073,.025]);}
  const legs=[],arms=[];
- for(const x of [-.22,.22]){const leg=new THREE.Group();leg.position.set(x,.82,0);character.add(leg);part(new THREE.BoxGeometry(.26,.62,.3),pants,leg,[0,-.30,0]);part(new THREE.BoxGeometry(.29,.2,.46),boots,leg,[0,-.65,.07]);legs.push(leg);const arm=new THREE.Group();arm.position.set(Math.sign(x)*.5,1.5,0);character.add(arm);part(new THREE.BoxGeometry(.22,.52,.24),uniform,arm,[0,-.2,0]);part(new THREE.SphereGeometry(.12,8,6),skin,arm,[0,-.51,0]);arms.push(arm);}
- const tool=new THREE.Group();arms[1].add(tool);tool.position.set(0,-.51,.08);part(new THREE.BoxGeometry(.12,.12,.60),hat,tool,[0,0,.25]);part(new THREE.BoxGeometry(.4,.16,.15),boots,tool,[0,0,.57]);
+ for(const x of [-.21,.21]){
+  const leg=new THREE.Group();leg.position.set(x,.82,0);character.add(leg);
+  part(new THREE.CapsuleGeometry(.145,.32,6,12),pants,leg,[0,-.28,0]);
+  softPart(leg,boots,[0,-.65,.07],[.18,.16,.28]);softPart(leg,leather,[0,-.70,.08],[.185,.075,.28]);legs.push(leg);
+  const arm=new THREE.Group();arm.position.set(Math.sign(x)*.45,1.53,0);character.add(arm);
+  part(new THREE.CapsuleGeometry(.14,.25,6,12),uniform,arm,[0,-.17,0]);
+  part(new THREE.CapsuleGeometry(.10,.10,5,10),skin,arm,[0,-.40,0]);softPart(arm,leather,[0,-.53,.03],[.115,.13,.115]);arms.push(arm);
+ }
+ const tool=new THREE.Group();arms[1].add(tool);tool.position.set(0,-.51,.08);
+ const handle=part(new THREE.CapsuleGeometry(.065,.42,5,10),hat,tool,[0,0,.25]);handle.rotation.x=Math.PI/2;
+ softPart(tool,boots,[0,0,.57],[.22,.09,.10]);
  tool.scale.setScalar(game.tool===2?1.4:game.tool===1?1.15:1);
  const shadowRing=part(new THREE.RingGeometry(.65,.76,32),new THREE.MeshBasicMaterial({color:0xeaffb4,side:THREE.DoubleSide,transparent:true,opacity:.65}),scene,[game.player.x,.08,game.player.z]);shadowRing.rotation.x=-Math.PI/2;
  const playerLight=new THREE.PointLight(0xffeab0,0,13,2);playerLight.position.set(0,3,0);character.add(playerLight);
